@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_item_vertical_view.view.*
 
 class VerticalViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
+    var clickListener: VerticalAdapter.ItemClickListener? = null
+
     companion object {
         fun newInstance(parent: ViewGroup): VerticalViewHolder {
             val itemView = LayoutInflater.from(parent.context)
@@ -16,7 +18,11 @@ class VerticalViewHolder(parent: View) : RecyclerView.ViewHolder(parent) {
         }
     }
 
-    private val adapter = HorizontalAdapter()
+    private val adapter = HorizontalAdapter(object : VerticalAdapter.ItemClickListener {
+        override fun onClick(position: Int) {
+            clickListener?.onClick(position)
+        }
+    })
 
     init {
         parent.recyclerView.layoutManager = LinearLayoutManager(parent.context, LinearLayoutManager.HORIZONTAL, false)

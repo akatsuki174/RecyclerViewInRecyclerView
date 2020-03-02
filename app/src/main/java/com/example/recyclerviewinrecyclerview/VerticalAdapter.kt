@@ -1,12 +1,15 @@
 package com.example.recyclerviewinrecyclerview
 
-import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class VerticalAdapter() : RecyclerView.Adapter<VerticalViewHolder>() {
+class VerticalAdapter : RecyclerView.Adapter<VerticalViewHolder>() {
+    var clickListener: ItemClickListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VerticalViewHolder {
-        return VerticalViewHolder.newInstance(parent)
+        return VerticalViewHolder.newInstance(parent).also {
+            it.clickListener = clickListener
+        }
     }
 
     override fun getItemCount(): Int {
@@ -15,5 +18,9 @@ class VerticalAdapter() : RecyclerView.Adapter<VerticalViewHolder>() {
 
     override fun onBindViewHolder(holder: VerticalViewHolder, position: Int) {
 
+    }
+
+    interface ItemClickListener {
+        fun onClick(position: Int)
     }
 }

@@ -3,7 +3,7 @@ package com.example.recyclerviewinrecyclerview
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class HorizontalAdapter: RecyclerView.Adapter<HorizontalViewHolder>() {
+class HorizontalAdapter(private val clickListener: VerticalAdapter.ItemClickListener?): RecyclerView.Adapter<HorizontalViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HorizontalViewHolder {
         return HorizontalViewHolder.newInstance(parent)
     }
@@ -13,6 +13,8 @@ class HorizontalAdapter: RecyclerView.Adapter<HorizontalViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: HorizontalViewHolder, position: Int) {
-
+        holder.itemView.setOnClickListener {
+            clickListener?.onClick(position)
+        }
     }
 }
